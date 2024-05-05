@@ -24,7 +24,7 @@ app.get("/test", (req, res) => {
 });
 
 // Configuring route of contact
-app.use("/api/contact", require("./routes/contactRoutes"));
+app.use("/api/users", require("./routes/contactRoutes"));
 
 // Configuring route of reservations
 app.use("/api/reservations", require("./routes/reservationRoutes"));
