@@ -1,10 +1,13 @@
 const appointmentModel = require("../model/appointmentModel");
 
 const bookAppointment = async (req, res) => {
+  // Check incoming data
   console.log(req.body);
 
+  // Destructure the incoming data
   const { date, time } = req.body;
 
+  // Validate the data( if empty, send response)
   if (!date || !time) {
     return res.json({
       success: false,
@@ -15,6 +18,7 @@ const bookAppointment = async (req, res) => {
   const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
   const timeRegex = /^\d{2}:\d{2}$/;
 
+  // Validate the data and time format
   if (!dateRegex.test(date) || !timeRegex.test(time)) {
     return res.json({
       success: false,

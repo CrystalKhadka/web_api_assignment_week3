@@ -4,10 +4,10 @@ const addContact = async (req, res) => {
   // Check incoming data
   console.log(req.body);
 
+  // Destructure the data
   const { name, phone, email } = req.body;
 
-  // console.log(name);
-
+  // Validate the data(if empty, stop the process)
   if (!name || !phone || !email) {
     return res.json({
       success: false,
@@ -15,8 +15,11 @@ const addContact = async (req, res) => {
     });
   }
 
+  // Error handling
   try {
+    // Check for existing phone number
     const existingContact = await contactModel.findOne({ phone: phone });
+    // If phone number found, sent response
     if (existingContact) {
       return res.json({
         status: false,
@@ -24,14 +27,17 @@ const addContact = async (req, res) => {
       });
     }
 
+    // If phone number is new
     const newContact = new contactModel({
       name: name,
       phone: phone,
       email: email,
     });
 
+    // Save to database
     await newContact.save();
 
+    // Send response
     res.json({
       success: true,
       message: `${name} : ${phone} `,
